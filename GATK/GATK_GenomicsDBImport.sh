@@ -1,13 +1,14 @@
 #!/bin/sh
 
 # Variables
-TMP_DIR="/home/syjoo/Project/EWAS_pre/VCF/Batch_early/TMP"
-OUTPUT_DIR="/home/syjoo/Project/EWAS_pre/VCF/Batch_early/"
+TMP_DIR="[path_to_output]/TMP"
+OUTPUT_DIR="[path_to_output]"
 THREADS=8
 MEMORY="64g"
 MAX_JOBS=4  # Number of parallel jobs
-REF="/home/syjoo/REF/Human/hg38/hg38_vgatk/v0/Homo_sapiens_assembly38.fasta"
+REF="[path_to_ref]/Homo_sapiens_assembly38.fasta"
 sample_name="early"
+#Please refer to the example file: "Proband.txt". 
 proband="Proband.txt"
 
 # Load required modules
