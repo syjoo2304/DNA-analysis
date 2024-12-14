@@ -15,4 +15,4 @@ python Edit_to_annovarDBfmt.py
 Step04. Plsease run the following code for indexing the customized DB for annovar annotation. The step should ouput .txt file and .txt.idx file in [path_to_annovar_humandb]/humandb directory.
 [path_to_perl_script]/index_annovar.pl tommo_annov.bed -outfile [path_to_annovar_humandb]/humandb/hg38_tommo.txt
 
-Step05. Ready to annotate variants with custmized DB!
+Step05. Ready to annotate variants with customized DB!
