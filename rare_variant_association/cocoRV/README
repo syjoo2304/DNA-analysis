@@ -1,3 +1,5 @@
+## This repository is for running cocoRV in local server with customized control data, not limited to gnomAD.
+## STEP01. Install cocoRV.
 # Installation guide for cocoRV using conda.
 conda install -c conda-forge r-base=4.0.0 
 conda install -c conda-forge r-spatstat
@@ -14,3 +16,7 @@ devtools::install_version('discreteMTP','0.1-2')
 Rscript build.R
 bash test.sh
 pip install pyBigWig
+
+## STEP02. Run 'GDS.sh'
+
+##STEP03. Run 'RuncocoRV.sh'
