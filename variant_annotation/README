@@ -1,0 +1,4 @@
+#There are various tools for variant annotation. Among them, one tool I particularly felt useful is ANNOVAR.
+#This software is useful when you need to do customization for database of your interest. To my knowledge, customization of DB is especially needed 
+#when you are studying variants of patients whose ancestry is under-represented in mostly-used population databases, such as gnomAD, ExAC and so on.
+#ANNOVAR was previously supporting customization of DB, but now the script needed for customization is not offered. So I shared here the codes that ANNOVAR offered before for customization and how to use them for the purpose.
