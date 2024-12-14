@@ -1,0 +1,4 @@
+#Please run PLINK for creating binary files from 
+#edit myplink.ped for case, control configuration.
+plink --file myPlinkTextData --make-bed --out myPlinkBinaryData
+
