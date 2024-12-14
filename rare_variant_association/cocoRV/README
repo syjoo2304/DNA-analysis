@@ -1,5 +1,5 @@
-## Please git clone cocoRV repository, before setting up the conda environment for cocoRV installation & running.
 ## This repository is for running cocoRV in local server with customized control data, not limited to gnomAD.
+## Please git clone cocoRV repository, before setting up the conda environment for cocoRV installation & running.
 ## STEP01. Install cocoRV.
 # Installation guide for cocoRV using conda.
 conda install -c conda-forge r-base=4.0.0 
