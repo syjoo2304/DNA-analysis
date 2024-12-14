@@ -53,18 +53,3 @@ CHROMOSOMES=$(seq 1 19)
 ## Run parallel jobs using xargs, limiting to MAX_JOBS at a time
 echo ${CHROMOSOMES} X Y | tr ' ' '\n' | xargs -n 1 -P ${MAX_JOBS} -I {} bash -c 'run_haplotypecaller "$@"' _ {}
 
-
-## Generate the list of input VCF files (chr1 to chr19, chrX, chrY)
-ls ${OUTPUT_DIR}/output_chr{1..19}.vcf ${OUTPUT_DIR}/output_chrX.vcf ${OUTPUT_DIR}/output_chrY.vcf > ${OUTPUT_DIR}/${sample_name}.sample_list.txt
-
-## Run the GATK MergeVcfs command
-gatk --java-options "-Xmx${MEMORY}" \
-    MergeVcfs \
-    --INPUT ${OUTPUT_DIR}/${sample_name}.sample_list.txt \
-    --OUTPUT ${OUTPUT_DIR}/${output_filename}
-
-## Sort the merged VCF file by chromosome
-gatk --java-options "-Xmx${MEMORY}" \
-    SortVcf \
-    --INPUT ${OUTPUT_DIR}/${output_filename} \
-    --OUTPUT ${OUTPUT_DIR}/${sorted_output_filename}
