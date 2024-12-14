@@ -1,5 +1,5 @@
 
 As a bioinformatician, every single time I am using GATK pipeline i flet this is a state-of-an-art work. Dragen, a cloud-based platform where you can use GATK pipeline via Illumina's service, is super fast and accurate, recommendable for any clinical settings.
 But still in some situations where we should manage GATK pipeline for large populations and in the closed server due to privacy issues, the speed can he a hughe setback.
-I encountered those situations especially when I deposited a bunch of fasta/GVCF files from the Korea's national biobank project and should run GATK in closed server.
+
 The code uploaded here is those I esepecially felt useful when improving the speed of GATK analysis pipeline, including HaplotypeCaller and GenomicsDBImport.
