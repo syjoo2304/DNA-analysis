@@ -2,3 +2,17 @@
 #This software is useful when you need to do customization for database of your interest. To my knowledge, customization of DB is especially needed 
 #when you are studying variants of patients whose ancestry is under-represented in mostly-used population databases, such as gnomAD, ExAC and so on.
 #ANNOVAR was then supporting customization of DB, but now the script needed for customization is not offered in the offical release. So I shared here the codes that ANNOVAR offered before and how to utilize them for the purpose.
+
+Step01. Please download the database (VCF format) you want to customize on your local server. 
+# Here, I am going to use ToMMo 60K dataset, a largest Japanese population database completed by Tohoku group. download link: https://jmorp.megabank.tohoku.ac.jp/downloads/ 
+
+Step02. Please run the following code.
+[path_to_perl_script]/convert2annovar.pl -format vcf4 [path_to_database_you_want_to_customize]/tommo-60kjpn-20240904-GRCh38-snvindel-af-autosome.vcf.gz > tommo.avinput
+
+Step03. Please run the python code. ## The code for this step should be edited up to what information you want to annotate from the database.
+python Edit_to_annovarDBfmt.py
+
+Step04. Plsease run the following code for indexing the customized DB for annovar annotation. The step should ouput .txt file and .txt.idx file in [path_to_annovar_humandb]/humandb directory.
+[path_to_perl_script]/index_annovar.pl tommo_annov.bed -outfile [path_to_annovar_humandb]/humandb/hg38_tommo.txt
+
+Step05. Ready to annotate variants with custmized DB!
