@@ -4,7 +4,7 @@
 REFERENCE_GENOME="mm10.fa"
 INPUT_BAM="$1"
 sample_name=$(basename "$INPUT_BAM" | cut -d'_' -f1)
-OUTPUT_DIR="/home/syjoo/test/do/${sample_name}_v3"
+OUTPUT_DIR="[dir_to_output]/${sample_name}"
 THREADS=8
 MEMORY="64g"
 MAX_JOBS=4  # Number of parallel jobs
@@ -63,7 +63,7 @@ gatk --java-options "-Xmx${MEMORY}" \
     --INPUT ${OUTPUT_DIR}/${sample_name}.sample_list.txt \
     --OUTPUT ${OUTPUT_DIR}/${output_filename}
 
-## Step 2: Sort the merged VCF file by chromosome
+## Sort the merged VCF file by chromosome
 gatk --java-options "-Xmx${MEMORY}" \
     SortVcf \
     --INPUT ${OUTPUT_DIR}/${output_filename} \
