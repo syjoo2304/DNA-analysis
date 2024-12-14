@@ -1,0 +1,2 @@
+sample1_name  [dir_to_sample1(gvcf)]/sample1.gvcf
+sample2_name  [ir_to_sample1(gvcf)]/sample2.gvcf
