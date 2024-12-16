@@ -14,10 +14,10 @@ awk '!( ($4=="A" && $5=="T") || \
 ##Prepare target data (case-control)
 plink2 --vcf target/clean2.vcf --geno 0.01 --out ARHL_v23 --make-bed --double-id
 
-python fam_edit.py
+python src/fam_edit.py
 mv ARHL_v23.fam backup/
 mv ARHL_e_23.fam ARHL_v23.fam
 
-python bim_edit.py
+python src/bim_edit.py
 mv ARHL_v23.bim backup/
 mv ARHL_e_23.bim ARHL_v23.bim
