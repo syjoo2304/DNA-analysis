@@ -1,36 +1,42 @@
 library(SKAT)
+setwd("/home/syjoo/SKAT")
+#version rare
+file_name <- "rare_2"
 
-File.Bed<-'./Example1.bed'
-File.Bim<-'./Example1.bim'
-File.Fam<-'./Example1.fam'
-File.SetID<-'./Example1.SetID'
+File.Bed <- paste(file_name,".bed",sep = "") #
+File.Bim <- paste(file_name,"2.bim",sep = "") #
+File.Fam <- paste(file_name,".fam",sep = "") #
+File.SSD <- paste(file_name,".SSD",sep = "") 
+File.Info <- paste(file_name,".info",sep = "")
+File.SetID <- paste(file_name,".SetID",sep = "") #
 
-#Calling covariate file (Order of the sample ID must be same with the fam file)
-#When there is no covariate file, use FAM<-Read_Plink_FAM(File.Fam,Is.binary = F) 
-#and object obj<-SKAT_Null_Model(y~X1+X2, out_type = 'C')
-File.Cov<-'./Example1.Cov'
-FAM_Cov<-Read_Plink_FAM_Cov(File.Fam,File.Cov,Is.binary = F)
+Generate_SSD_SetID(File.Bed, File.Bim, File.Fam, File.SetID, File.SSD, File.Info)
+#genotype <- Get_Genotypes_SSD(File.Info, SET_ID, is_ID = TRUE)
+#Check duplicated SNPs in each SNP set
+#No duplicate
+#Warning: SSD file has more SNP sets then SetID file.It happens when SNPs in sets are not contiguous!
+#SKAT generates a temporary SetID file with contiguous SNP sets. However the order of SNP sets will be different from the order of SNP sets in the original SetID file!
+#Check duplicated SNPs in each SNP set
+#No duplicate
+#118 Samples, 46946 Sets, 3817058 Total SNPs
 
-#Object file for Null model
-obj<-SKAT_Null_Model(Phenotype~X1+X2, data=FAM_Cov, out_type = 'C')
-
-# If the phenotype is binary one, out_type='D'
-# for dichotomous phenotype
-#obj <- SKAT_Null_Model(y ~ covariates, out_type="D")
-#When there is no covariate file, use FAM<-Read_Plink_FAM(File.Fam,Is.binary = F) 
-#and object obj<-SKAT_Null_Model(y~1, out_type = 'C')
-
-#Please set file location and name for SSD file and SSD.info file 
-File.SSD<-'./Example1.SSD'
-File.Info<-'./Example1.SSD.info'
-
+SSD.INFO <- Open_SSD(File.SSD, File.Info)
+FAM <- Read_Plink_FAM(File.Fam, Is.binary=TRUE)
+# continuous phenotype
+#obj <- SKAT_Null_Model(y ~ covariates, out_type="C")
+# dichotomous phenotype
+obj <- SKAT_Null_Model(Phenotype ~ Sex, out_type="D", data=FAM)
 #Generate and open SSD file for analysis
-Generate_SSD_SetID(File.Bed,File.Bim,File.Fam,File.SetID,File.SSD,File.Info )
-SSD.INFO<-Open_SSD(File.SSD,File.Info)
-SSD.INFO$nSample
-SSD.INFO$nSets
-
-#Analysis
-out<-SKAT.SSD.All(SSD.INFO,obj,method='SKATO')
-#close SSD file 
+SSD.INFO <- Open_SSD(File.SSD,File.Info)
+# SKAT
+out.skat <- SKATBinary.SSD.All(SSD.INFO, obj)
+out.skat.results <- out.skat$results
+QQPlot_Adj(out.skat.results$P.value, out.skat.results$MAP, main="QQ plot", ntry=500, confidence=0.95, Is.unadjsted=TRUE
+, Is.legend=TRUE, xlab="Expected Quantiles (-log10 P-values)"
+, ylab="Observed Quantiles (-log10 P-values)")
+#SKAT-O
+out.skato <- SKAT.SSD.All(SSD.INFO, obj, method="optimal")
+#Burden test
+out.burden <- SKAT.SSD.All(SSD.INFO, obj, r.corr=1)
+write.table(out.skat$results,"SKAT_results_rare.txt",col.names=T,row.names=F,quote=F,sep="\t")
 Close_SSD()
