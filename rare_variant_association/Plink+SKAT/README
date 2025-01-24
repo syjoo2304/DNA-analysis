@@ -1,3 +1,41 @@
-#Please run PLINK for creating binary files 
-plink --file myPlinkTextData --make-bed --out myPlinkBinaryData
+# Rare Variant Association Analysis Workflow
 
+This workflow processes rare variant data from a VCF file and prepares it for association analysis using SKAT (Sequence Kernel Association Test) in R.
+
+## Prerequisites
+- **PLINK 1.9**: For data manipulation and conversion.
+- **Python**: To run custom preprocessing scripts.
+- **R**: For running SKAT.
+- Ensure all required Python and R packages are installed before starting.
+
+---
+
+## Step-by-Step Guide
+
+### 1. Load PLINK Module
+```bash
+module load plink1.9
+
+### 2. Convert VCF to PED/MAP Format
+plink --noweb --vcf filtered6.rare.vcf \
+--recode --out rare --double-id
+#Output Files:
+#rare.ped: Genotype data.
+#rare.map: Marker information.
+
+### 3. Edit the PED File
+python edit_ped_rare.py
+
+### 4. Backup the MAP File
+cp rare.map rare_2.map
+
+### 5. Convert PED/MAP to Binary Format
+plink --file rare_2 --make-bed --out rare_2
+
+### 6. Create SETID File
+python create_setid_rare.py
+
+### 7. Edit the BIM File
+python edit_bim_rare.py
+
+### 8. Run SKAT in R
